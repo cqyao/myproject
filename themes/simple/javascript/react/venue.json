@@ -1,0 +1,52 @@
+{
+  "locations": [
+    {
+      "name": "Wollongong",
+      "address": "34 Belmore St",
+      "postcode": "NSW 2500",
+      "capacity": 120,
+      "description": "The H.Parsons Chapel in Wollongong is designed to be versatile and modern, allowing for large and small funeral services to be held comfortably. The foyer area of the Chapel provides a space for friends and family to gather and enjoy refreshments.",
+      "chips": ["Outdoor foyer", "Catering", "Reflection wall"]
+    },
+    {
+      "name": "Bulli",
+      "address": "278 Princes Hwy",
+      "postcode": "NSW 2516",
+      "capacity": 80,
+      "description": "Our Bulli Chapel is filled with warm natural light and uses earthy tones which are accentuated by the native escarpment and seaside location. The Chapel can be adapted to suit large or small services and a patio area with an outdoor TV monitor means that overflow guests can be seated comfortably and view the service. Modern audio-visual facilities and features, including webcasting are available at our funeral home for the northern Illawarra.",
+      "chips": ["Outdoor patio", "Outdoor TV", "Online webcasting"]
+    },
+    {
+      "name": "Dapto",
+      "address": "4 Princes Hwy",
+      "postcode": "NSW 2530",
+      "capacity": 200,
+      "description": "The Chapel at Dapto is designed to create a comfortable and light atmosphere. The area is large enough to hold groups of up to 160 people, while curtains can be drawn to create a smaller, more intimate space. The foyer area allows for additional standing room if required and TV monitors allow visibility for all attending.",
+      "chips": ["Outdoor foyer", "Multiple TVs"]
+    },
+    {
+      "name": "Shellharbour",
+      "address": "15 Addison St",
+      "postcode": "NSW 2529",
+      "capacity": 150,
+      "description": "The Shellharbour Chapel provides a tranquil environment, featuring lush greenery and ample natural lighting. It is equipped with modern audio-visual technology and can accommodate services of various sizes with additional standing room available in the adjoining garden area.",
+      "chips": ["Newly renovated", "Outdoor foyer", "Catering"]
+    },
+    {
+      "name": "Kiama",
+      "address": "18 Terralong St",
+      "postcode": "NSW 2533",
+      "capacity": 100,
+      "description": "Located in the heart of Kiama, this Chapel offers a warm and inviting space with panoramic views of the surrounding hills. The venue is equipped with modern amenities, including an AV system for webcasting services to those unable to attend in person.",
+      "chips": ["Huge 4K display", "Spacious area"]
+    },
+    {
+      "name": "Nowra",
+      "address": "21 Kinghorne St",
+      "postcode": "NSW 2541",
+      "capacity": 180,
+      "description": "The Nowra Chapel features state-of-the-art facilities designed to host larger gatherings. Its flexible layout includes a spacious main hall and a private family room for moments of reflection. Ample parking and accessibility options are available for attendees.",
+      "chips": ["Adaptable size", "Air-conditioning", "Catering"]
+    }
+  ]
+}
