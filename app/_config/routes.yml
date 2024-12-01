@@ -1,0 +1,6 @@
+---
+Name: venue_routes
+---
+SilverStripe\Control\Director:
+  rules:
+    'api/venues': 'App\Controllers\VenueController'
