@@ -27,7 +27,7 @@ export default function Item({ name, address, postcode, description, capacity, c
       />
       <CardContent sx={{ padding: 3}}>
         <Typography gutterBottom variant='h4'>
-          hello{name}
+          hello
         </Typography>
         
         <Typography variant='subtitle1' >
