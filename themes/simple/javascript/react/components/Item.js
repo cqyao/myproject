@@ -8,26 +8,54 @@ import { Chip, Typography } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Groups2TwoToneIcon from '@mui/icons-material/Groups2TwoTone';
-import Box from '@mui/material/Box';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
-const labels = ["Outdoor TV", "4K display", "Modern", "Catered"]
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 1
+  },
+}
 
 export default function Item({ name, address, postcode, description, capacity, chips }) {
   return(
     <Card variant='outlined' sx={{ width: 400, height: 'auto', borderRadius: 5, boxShadow: 1, paddingBottom: 3 }}>
-      <Img
-        src={`/assets/${name}.webp`}
-        alt="Wollongong venue"
-        style={{
-          width: '100%',
-          height: 'auto',
-        }}
-        width={500}
-        height={500}
-      />
+      <Carousel responsive={responsive} infinite={true}>
+        <Img
+          src={`/assets/${name}.webp`}
+          alt="Wollongong venue"
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
+          width={500}
+          height={500}
+        />
+        <Img
+          src={`/assets/Dapto.webp`}
+          alt="Wollongong venue"
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
+          width={500}
+          height={500}
+        />
+        <Img
+          src={`/assets/Bulli.webp`}
+          alt="Wollongong venue"
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
+          width={500}
+          height={500}
+        />
+      </Carousel>
       <CardContent sx={{ padding: 3}}>
         <Typography gutterBottom variant='h4'>
-          hello
+          {name}
         </Typography>
         
         <Typography variant='subtitle1' >
@@ -38,11 +66,11 @@ export default function Item({ name, address, postcode, description, capacity, c
           {postcode}
         </Typography>
         {/* Provides easy-to-read and short details about this location */}
-        <Box className="chips" sx={{ marginBottom: 2 }}>
+        {/* <Box className="chips" sx={{ marginBottom: 2 }}>
           {chips.map((label, index) => (
             <Chip key={index} label={label} size="small" sx={{ marginRight: 1, marginBottom: 1 }}/>
           ))}
-        </Box>
+        </Box> */}
         <Typography
           sx={{
             display: '-webkit-box',

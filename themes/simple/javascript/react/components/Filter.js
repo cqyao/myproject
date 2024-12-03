@@ -110,7 +110,7 @@ export default function Filter({ setCapacity, setSearch }) {
                 shiftStep={20}
                 step={20}
                 min={0}
-                max={300}
+                max={200}
                 onChange={handleSlider}
                 size="small"
               />
@@ -118,6 +118,9 @@ export default function Filter({ setCapacity, setSearch }) {
                 <Typography
                   variant="body2"
                 >0</Typography>
+                <Typography
+                  variant="body2"
+                >-</Typography>
                 <Typography
                   variant="body2"
                 >{value}</Typography>

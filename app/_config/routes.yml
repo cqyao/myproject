@@ -1,6 +1,8 @@
+# app/_config/routes.yml
 ---
-Name: venue_routes
+Name: approutes
+After: '#coreroutes'
 ---
 SilverStripe\Control\Director:
   rules:
-    'api/venues': 'App\Controllers\VenueController'
+    'api/venues': 'App\Control\VenueController'
