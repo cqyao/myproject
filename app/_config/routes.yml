@@ -4,5 +4,7 @@ Name: approutes
 After: '#coreroutes'
 ---
 SilverStripe\Control\Director:
-  rules:
+  rules: 
     'api/venues': 'App\Control\VenueController'
+    'api/images': 'App\Control\ImageController'
+    'api/chips': 'App\Control\ChipController'

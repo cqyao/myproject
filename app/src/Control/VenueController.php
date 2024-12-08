@@ -24,6 +24,7 @@ class VenueController extends Controller
         'Postcode' => $venue->Postcode,
         'Capacity' => $venue->Capacity,
         'Description' => $venue->Description,
+        'Region' => $venue->Region
     ];
     }
 

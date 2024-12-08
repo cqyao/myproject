@@ -12,8 +12,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 const checkedRegions = []
 
-export default function Filter({ setCapacity, setSearch }) {
-  const [sort, setSort] = React.useState('');
+export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [value, setValue] = React.useState(80);
   const handleSlider = (_, newValue) => {
@@ -25,8 +24,9 @@ export default function Filter({ setCapacity, setSearch }) {
     shellharbour: false,
     shoalhaven: false,
     kiama: false,
+    southcoast: false,
   })
-  const { wollongong, shellharbour, shoalhaven, kiama } = state;
+  const { wollongong, shellharbour, shoalhaven, kiama, southcoast } = state;
 
   // For opening filter popover
   const handleClick = (event) => {
@@ -42,10 +42,15 @@ export default function Filter({ setCapacity, setSearch }) {
   const handleClear = () => {
     setValue(80);
     setCapacity(80);
-  }
+  };
+
+  const handleSort = (event) => {
+    const value = event.target.value;
+    sortBy(value);
+  };
 
   // For checkboxes
-  const handleChange = (event, region) => {
+  const handleChange = (event) => {
     setState({
       ...state,
       [event.target.name]: event.target.checked,
@@ -133,6 +138,7 @@ export default function Filter({ setCapacity, setSearch }) {
                 <FormControlLabel control={<Checkbox checked={kiama} onChange={handleChange}/>} name="kiama" label={<Typography variant='overline'>Kiama</Typography>} />
                 <FormControlLabel control={<Checkbox checked={shellharbour} onChange={handleChange}/>} name="shellharbour" label={<Typography variant='overline'>Shellharbour</Typography>} />
                 <FormControlLabel control={<Checkbox checked={shoalhaven} onChange={handleChange}/>} name="shoalhaven" label={<Typography variant='overline'>Shoalhaven</Typography>} />
+                <FormControlLabel control={<Checkbox checked={southcoast} onChange={handleChange}/>} name="southcoast" label={<Typography variant='overline'>South Coast</Typography>} />
               </FormGroup>
             </Box>
           </Box>
@@ -141,6 +147,7 @@ export default function Filter({ setCapacity, setSearch }) {
           <Button variant='text' onClick={handleClear}>Clear all</Button>
         </Box>
       </Popover>
+      {/* Sort by button */}
       <Select
         labelId='sortSelect-label'
         id='sortSelect'
@@ -149,12 +156,14 @@ export default function Filter({ setCapacity, setSearch }) {
         sx={{
           width: 150,
           height: 35,
-          gap: 1
+          gap: 1,
         }}
+        onChange={handleSort}
       >
-        <MenuItem value={1}>Reviews</MenuItem>
-        <MenuItem value={2}>Capacity</MenuItem>
-        <MenuItem value={3}>Recommended</MenuItem>
+        <MenuItem value="capacity-desc">Capacity, high to low</MenuItem>
+        <MenuItem value="capacity-asc">Capacity, low to high</MenuItem>
+        <MenuItem value="name-asc">Name, A to Z</MenuItem>
+        <MenuItem value="name-desc">Name, Z to A</MenuItem>
       </Select>
     </Box>
   )

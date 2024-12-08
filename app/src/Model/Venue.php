@@ -14,5 +14,6 @@ class Venue extends DataObject
         'Postcode' => 'Varchar',
         'Capacity' => 'Int',
         'Description' => 'Text',
+        'Region' => 'Text',
     ];
 }
