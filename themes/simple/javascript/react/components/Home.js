@@ -13,7 +13,7 @@ export default function Home() {
   const [venues, setVenues] = useState([]);
   const [sort, setSort] = React.useState('name-asc');
 
-
+  // Retrieve venues from database
   useEffect(() => {
     axios
       .get('/api/venues/getVenue')
@@ -31,6 +31,7 @@ export default function Home() {
       });
   }, []);
 
+  // Filters and sorts the array of venue objects accordingly
   const filteredVenues = venues
     .filter((venue) =>
       (venue.Title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -43,15 +44,17 @@ export default function Home() {
       if (sort === "name-asc") return a.Title.localeCompare(b.Title);
       if (sort === "name-desc") return b.Title.localeCompare(a.Title);
       return 0;
-  });
+    });
 
   return (
     <Box>
       <Box sx={{ display: 'grid', alignItems: 'center', justifyItems: 'center', minHeight: '100svh', padding: '70px', gap: '64px', bgcolor: '#FFFCF9', height: 'auto' }}>
         <Header />
         <Box className="display-all" sx={{ width: '100%' }} display="flex" flexDirection="column">
-          <Filter setCapacity={setCapacity} setSearch={setSearchQuery} setVenues={setVenues} sortBy={setSort} sort={sort}/>
+          {/* Displays available filters */}
+          <Filter setCapacity={setCapacity} setSearch={setSearchQuery} setVenues={setVenues} sortBy={setSort} sort={sort} />
           <Box className="items" sx={{ height: 'auto', width: '100%' }}>
+            {/* Grid displays venues */}
             <Grid container={true} rowSpacing={5} direction="row">
               {Array.isArray(filteredVenues) && filteredVenues.map((venue, index) => (
                 <Grid key={index} size={4} display="flex" justifyContent="center" alignItems="center">

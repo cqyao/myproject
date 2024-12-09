@@ -44,6 +44,7 @@ export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort
     setCapacity(80);
   };
 
+  // For sorting
   const handleSort = (event) => {
     const value = event.target.value;
     sortBy(value);
@@ -56,6 +57,7 @@ export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort
       [event.target.name]: event.target.checked,
     });
 
+    // Adds checked regions to an array
     if (checkedRegions.includes(event.target.name)) {
       const index = checkedRegions.indexOf(event.target.name);
       checkedRegions.splice(index, 1)
@@ -67,7 +69,7 @@ export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort
 
   const open = Boolean(anchorEl);
   return (
-    <Box className="filters" sx={{ display: 'flex', height: 100, width: '100%', padding: 2, gap: 2, paddingLeft: 12 }} flexDirection="row">
+    <Box className="filters" sx={{ display: 'flex', height: 100, width: '100%', padding: 2, gap: 2, paddingLeft: 12, alignItems: 'center' }} flexDirection="row">
       {/* Search bar */}
       <TextField
         id="search-bar"
@@ -87,6 +89,7 @@ export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort
           width: 200,
           height: 35,
           gap: 2,
+          borderRadius: 2,
         }}
       >
         <TuneIcon />
@@ -148,23 +151,27 @@ export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort
         </Box>
       </Popover>
       {/* Sort by button */}
-      <Select
-        labelId='sortSelect-label'
-        id='sortSelect'
-        value={sort}
-        label="Sort by"
-        sx={{
-          width: 150,
-          height: 35,
-          gap: 1,
-        }}
-        onChange={handleSort}
-      >
-        <MenuItem value="capacity-desc">Capacity, high to low</MenuItem>
-        <MenuItem value="capacity-asc">Capacity, low to high</MenuItem>
-        <MenuItem value="name-asc">Name, A to Z</MenuItem>
-        <MenuItem value="name-desc">Name, Z to A</MenuItem>
-      </Select>
+      <Box display='flex' sx={{ width: 'auto', alignItems: 'center', border: 1, borderColor: 'grey', borderRadius: 2, gap: 1, paddingLeft: 2 }} flexDirection='row'>
+        <Typography>Sort By</Typography>
+        <Select
+          labelId='sortSelect-label'
+          id='sortSelect'
+          value={sort}
+          label="Sort by"
+          sx={{
+            width: 200,
+            height: 35,
+            gap: 1,
+            border: 0
+          }}
+          onChange={handleSort}
+        >
+          <MenuItem value="capacity-desc">Capacity, high to low</MenuItem>
+          <MenuItem value="capacity-asc">Capacity, low to high</MenuItem>
+          <MenuItem value="name-asc">Name, A to Z</MenuItem>
+          <MenuItem value="name-desc">Name, Z to A</MenuItem>
+        </Select>
+      </Box>
     </Box>
   )
 }
