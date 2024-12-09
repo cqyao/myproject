@@ -86,7 +86,7 @@ export default function Filter({ setCapacity, setSearch, sortBy, sort, setChecke
         onInput={(e) => {
           setSearch(e.target.value);
         }}
-        sx={{ position: 'absolute', right: '0', paddingRight: 20 }}
+        sx={{ position: 'absolute', right: '0', paddingRight: 20, }}
       />
 
       {/* Filter By button */}
@@ -106,7 +106,7 @@ export default function Filter({ setCapacity, setSearch, sortBy, sort, setChecke
       </Button>
 
       {/* Sort By button */}
-      <Box display='flex' sx={{ width: 'auto', alignItems: 'center', border: 1, borderColor: 'grey', borderRadius: 2, gap: 1, paddingLeft: 2 }} flexDirection='row'>
+      <Box display='flex' sx={{ width: 'auto', height: 35, alignItems: 'center', border: 1, borderColor: 'grey', borderRadius: 2, gap: 1, paddingLeft: 2 }} flexDirection='row'>
         <SortIcon />
         <Typography>Sort By</Typography>
         <Select

@@ -53,10 +53,10 @@ export default function Home() {
     });
 
   return (
-    <Box>
+    <Box sx={{ minWidth: '150svh' }}>
       <Box sx={{ display: 'grid', alignItems: 'center', justifyItems: 'center', minHeight: '100svh', padding: '70px', gap: '64px', bgcolor: '#FFFCF9', height: 'auto' }}>
         <Header />
-        <Box className="display-all" sx={{ width: '100%' }} display="flex" flexDirection="column">
+        <Box className="display-all" sx={{ width: '100%', minHeight: '100svh' }} display="flex" flexDirection="column">
           {/* Displays available filters */}
           <Filter setCapacity={setCapacity} setSearch={setSearchQuery} setVenues={setVenues} sortBy={setSort} sort={sort} setCheckedRegions={setCheckedRegions} regions={checkedRegions}/>
           <Box className="items" sx={{ height: 'auto', width: '100%' }}>
