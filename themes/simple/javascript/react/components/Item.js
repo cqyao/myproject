@@ -48,7 +48,6 @@ export default function Item({ name, address, postcode, description, capacity })
       .get(`/api/chips/getChips?param=${encodeURIComponent(name)}`)
       .then((response) => {
         if (Array.isArray(response.data)) {
-          console.log(response.data)
           setChips(response.data);
         } else {
           console.error('Expected an array of chips but received: ', response.data);
@@ -75,6 +74,10 @@ export default function Item({ name, address, postcode, description, capacity })
         minWidth: 60,
         height: 60,
         borderRadius: '50%',
+        // Show feedback when user hovers over the arrow keys. May help to increase visibility on white images as well
+        '&:hover': {
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        },
       }}
     >
       <ArrowCircleRightIcon />
@@ -97,6 +100,9 @@ export default function Item({ name, address, postcode, description, capacity })
         minWidth: 60,
         height: 60,
         borderRadius: '50%',
+        '&:hover': {
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        },
       }}
     >
       <ArrowCircleLeftIcon size={20} />
@@ -113,6 +119,7 @@ export default function Item({ name, address, postcode, description, capacity })
         customLeftArrow={<CustomLeftArrow />}
       >
         {images.map((image, index) => {
+          // Currently the images load fast enough to not show this loading spinner but it may be useful in production
           if (loading) {
             return (
               <Box key={index} display='flex' sx={{ width: '100%', height: 'auto', justifyContent: 'center', alignContent: 'center', paddingTop: 5, paddingBottom: 5 }}>
@@ -121,11 +128,12 @@ export default function Item({ name, address, postcode, description, capacity })
             )
           } else {
             return (
+              // Couldn't use Next image so had to use React's Img instead.
               <Img
                 key={index}
                 src={`/assets/${image.Image_URL}`}
                 alt={`${image.Venue_Name}`}
-                // Image height is adaptable but preferably keep it consistent 
+                // Image height is adaptable but it might be better to keep it consistent so that heights aren't different among venue cards.
                 style={{
                   width: '100%',
                   height: 'auto',

@@ -11,7 +11,8 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [capacity, setCapacity] = useState(80);
   const [venues, setVenues] = useState([]);
-  const [sort, setSort] = React.useState('name-asc');
+  const [sort, setSort] = useState('name-asc');
+  const [checkedRegions, setCheckedRegions] = useState([]);
 
   // Retrieve venues from database
   useEffect(() => {
@@ -20,7 +21,6 @@ export default function Home() {
       .then((response) => {
         // Check if the response data is an array before setting it
         if (Array.isArray(response.data)) {
-          console.log(response.data)
           setVenues(response.data);
         } else {
           console.error('Expected an array, but received:', response.data);
@@ -34,8 +34,14 @@ export default function Home() {
   // Filters and sorts the array of venue objects accordingly
   const filteredVenues = venues
     .filter((venue) =>
+      // Check for checked locations
+      (checkedRegions.length === 0 ||
+        checkedRegions.some(region => venue.Region.toLowerCase() === region.toLowerCase())
+      ) &&
+      // Check for searched addresses or venue name
       (venue.Title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         venue.Address.toLowerCase().includes(searchQuery.toLowerCase())) &&
+      // Filter the capacity
       venue.Capacity >= capacity
     )
     .sort((a, b) => {
@@ -52,7 +58,7 @@ export default function Home() {
         <Header />
         <Box className="display-all" sx={{ width: '100%' }} display="flex" flexDirection="column">
           {/* Displays available filters */}
-          <Filter setCapacity={setCapacity} setSearch={setSearchQuery} setVenues={setVenues} sortBy={setSort} sort={sort} />
+          <Filter setCapacity={setCapacity} setSearch={setSearchQuery} setVenues={setVenues} sortBy={setSort} sort={sort} setCheckedRegions={setCheckedRegions} regions={checkedRegions}/>
           <Box className="items" sx={{ height: 'auto', width: '100%' }}>
             {/* Grid displays venues */}
             <Grid container={true} rowSpacing={5} direction="row">

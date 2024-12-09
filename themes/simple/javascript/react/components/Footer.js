@@ -11,7 +11,7 @@ import React from 'react';
 export default function Footer() {
   return(
     <Box sx={{ display: 'flex', bgcolor: "#E8F2FF", height: 'auto', width: "100%", justifyContent: 'space-evenly', padding: 5}} flexDirection="row">
-      <Box className="item1" display='flex' flexDirection='column' sx={{ height: 'auto', alignItems: 'center', justifyContent: 'center' }}>
+      <Box className="item1" display='flex' flexDirection='column' sx={{ height: 'auto',  alignItems: 'center' }}>
         <Typography variant="h6" color="primary">
           ADDITIONAL INFORMATION
         </Typography>
@@ -29,6 +29,17 @@ export default function Footer() {
         <Typography variant="h6" color="primary">
           CONTACT INFORMATION
         </Typography>
+        <ButtonGroup
+          orientation='vertical'
+          variant='text'
+        >
+          <Button size='small'>P: 02 4228 9622</Button>
+          <Button size='small'>E: info@hparsons.com.au</Button>
+          <Typography variant='body2' alignSelf='center' marginBottom={3} marginTop={3}>ABN: 44 000 470 977</Typography>
+          <Button>PRIVACY POLICY</Button>
+          <Button>TERMS OF USE</Button>
+
+        </ButtonGroup>
       </Box>
       <Box className="item3" sx={{ display: 'flex' }} flexDirection='column'>
         <Img

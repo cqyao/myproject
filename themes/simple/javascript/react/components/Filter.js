@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { ButtonGroup, Button, TextField, Typography, FormGroup, FormControlLabel } from '@mui/material';
+import { Button, TextField, Typography, FormGroup, FormControlLabel } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import TuneIcon from '@mui/icons-material/Tune';
 import SortIcon from '@mui/icons-material/Sort';
@@ -10,16 +10,10 @@ import Divider from '@mui/material/Divider'
 import Slider from '@mui/material/Slider';
 import Checkbox from '@mui/material/Checkbox';
 
-const checkedRegions = []
-
-export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort }) {
+export default function Filter({ setCapacity, setSearch, sortBy, sort, setCheckedRegions }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [value, setValue] = React.useState(80);
-  const handleSlider = (_, newValue) => {
-    setValue(newValue);
-    setCapacity(newValue);
-  };
-  const [ state, setState ] = React.useState({
+  const [state, setState] = React.useState({
     wollongong: false,
     shellharbour: false,
     shoalhaven: false,
@@ -27,6 +21,11 @@ export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort
     southcoast: false,
   })
   const { wollongong, shellharbour, shoalhaven, kiama, southcoast } = state;
+
+  const handleSlider = (_, newValue) => {
+    setValue(newValue);
+    setCapacity(newValue);
+  };
 
   // For opening filter popover
   const handleClick = (event) => {
@@ -42,6 +41,14 @@ export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort
   const handleClear = () => {
     setValue(80);
     setCapacity(80);
+    setCheckedRegions([]);
+    setState({
+      wollongong: false,
+      shellharbour: false,
+      shoalhaven: false,
+      kiama: false,
+      southcoase: false,
+    });
   };
 
   // For sorting
@@ -52,24 +59,24 @@ export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort
 
   // For checkboxes
   const handleChange = (event) => {
+    const { name, checked } = event.target;
+
     setState({
       ...state,
-      [event.target.name]: event.target.checked,
+      [name]: checked,
     });
 
-    // Adds checked regions to an array
-    if (checkedRegions.includes(event.target.name)) {
-      const index = checkedRegions.indexOf(event.target.name);
-      checkedRegions.splice(index, 1)
-    } else {
-      checkedRegions.push(event.target.name)
-    }
-    console.log(checkedRegions)
-  }
+    setCheckedRegions((prevRegions) =>
+      checked
+        ? [...prevRegions, name]
+        : prevRegions.filter((region) => region !== name)
+    );
+  };
 
   const open = Boolean(anchorEl);
   return (
     <Box className="filters" sx={{ display: 'flex', height: 100, width: '100%', padding: 2, gap: 2, paddingLeft: 12, alignItems: 'center' }} flexDirection="row">
+
       {/* Search bar */}
       <TextField
         id="search-bar"
@@ -81,6 +88,8 @@ export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort
         }}
         sx={{ position: 'absolute', right: '0', paddingRight: 20 }}
       />
+
+      {/* Filter By button */}
       <Button
         id="filterButton"
         onClick={handleClick}
@@ -95,6 +104,31 @@ export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort
         <TuneIcon />
         Filter by
       </Button>
+
+      {/* Sort By button */}
+      <Box display='flex' sx={{ width: 'auto', alignItems: 'center', border: 1, borderColor: 'grey', borderRadius: 2, gap: 1, paddingLeft: 2 }} flexDirection='row'>
+        <SortIcon />
+        <Typography>Sort By</Typography>
+        <Select
+          labelId='sortSelect-label'
+          id='sortSelect'
+          value={sort}
+          label="Sort by"
+          sx={{
+            width: 200,
+            height: 35,
+            gap: 1,
+            border: 0
+          }}
+          onChange={handleSort}
+        >
+          <MenuItem value="capacity-desc">Capacity, high to low</MenuItem>
+          <MenuItem value="capacity-asc">Capacity, low to high</MenuItem>
+          <MenuItem value="name-asc">Name, A to Z</MenuItem>
+          <MenuItem value="name-desc">Name, Z to A</MenuItem>
+        </Select>
+      </Box>
+
       {/* Modal for the filters */}
       <Popover
         id="filter-popover"
@@ -137,11 +171,11 @@ export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort
             <Box className="locations">
               <Typography variant='subtitle1'>Region</Typography>
               <FormGroup row={true}>
-                <FormControlLabel control={<Checkbox checked={wollongong} onChange={handleChange}/>} name="wollongong" label={<Typography variant='overline'>Wollongong</Typography>} />
-                <FormControlLabel control={<Checkbox checked={kiama} onChange={handleChange}/>} name="kiama" label={<Typography variant='overline'>Kiama</Typography>} />
-                <FormControlLabel control={<Checkbox checked={shellharbour} onChange={handleChange}/>} name="shellharbour" label={<Typography variant='overline'>Shellharbour</Typography>} />
-                <FormControlLabel control={<Checkbox checked={shoalhaven} onChange={handleChange}/>} name="shoalhaven" label={<Typography variant='overline'>Shoalhaven</Typography>} />
-                <FormControlLabel control={<Checkbox checked={southcoast} onChange={handleChange}/>} name="southcoast" label={<Typography variant='overline'>South Coast</Typography>} />
+                <FormControlLabel control={<Checkbox checked={wollongong} onChange={handleChange} />} name="wollongong" label={<Typography variant='overline'>Wollongong</Typography>} />
+                <FormControlLabel control={<Checkbox checked={kiama} onChange={handleChange} />} name="kiama" label={<Typography variant='overline'>Kiama</Typography>} />
+                <FormControlLabel control={<Checkbox checked={shellharbour} onChange={handleChange} />} name="shellharbour" label={<Typography variant='overline'>Shellharbour</Typography>} />
+                <FormControlLabel control={<Checkbox checked={shoalhaven} onChange={handleChange} />} name="shoalhaven" label={<Typography variant='overline'>Shoalhaven</Typography>} />
+                <FormControlLabel control={<Checkbox checked={southcoast} onChange={handleChange} />} name="southcoast" label={<Typography variant='overline'>South Coast</Typography>} />
               </FormGroup>
             </Box>
           </Box>
@@ -150,28 +184,7 @@ export default function Filter({ setCapacity, setSearch, setVenues, sortBy, sort
           <Button variant='text' onClick={handleClear}>Clear all</Button>
         </Box>
       </Popover>
-      {/* Sort by button */}
-      <Box display='flex' sx={{ width: 'auto', alignItems: 'center', border: 1, borderColor: 'grey', borderRadius: 2, gap: 1, paddingLeft: 2 }} flexDirection='row'>
-        <Typography>Sort By</Typography>
-        <Select
-          labelId='sortSelect-label'
-          id='sortSelect'
-          value={sort}
-          label="Sort by"
-          sx={{
-            width: 200,
-            height: 35,
-            gap: 1,
-            border: 0
-          }}
-          onChange={handleSort}
-        >
-          <MenuItem value="capacity-desc">Capacity, high to low</MenuItem>
-          <MenuItem value="capacity-asc">Capacity, low to high</MenuItem>
-          <MenuItem value="name-asc">Name, A to Z</MenuItem>
-          <MenuItem value="name-desc">Name, Z to A</MenuItem>
-        </Select>
-      </Box>
+      {/* End modal */}
     </Box>
   )
 }
