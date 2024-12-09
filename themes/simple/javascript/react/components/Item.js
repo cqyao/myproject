@@ -12,6 +12,8 @@ import Carousel from 'react-multi-carousel';
 import CircularProgress from '@mui/material/CircularProgress';
 import 'react-multi-carousel/lib/styles.css';
 import axios from 'axios';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 const responsive = {
   desktop: {
@@ -57,18 +59,63 @@ export default function Item({ name, address, postcode, description, capacity })
       });
   }, [name]);
 
-  React.useEffect(() => {
-    //console.log(chips)
-  })
+  const CustomRightArrow = ({ onClick, ...rest }) => {
+    const {
+      onMove,
+      carouselState: { currentSlide, deviceType }
+    } = rest;
+    return <Button
+      onClick={() => onClick()}
+      sx={{
+        position: 'absolute',
+        right: 10,
+        top: '50%',
+        transform: 'translateY(-50%)',
+        color: 'white',
+        minWidth: 60,
+        height: 60,
+        borderRadius: '50%',
+      }}
+    >
+      <ArrowCircleRightIcon />
+    </Button>;
+  };
+
+  const CustomLeftArrow = ({ onClick, ...rest }) => {
+    const {
+      onMove,
+      carouselState: { currentSlide, deviceType }
+    } = rest;
+    return <Button
+      onClick={() => onClick()}
+      sx={{
+        position: 'absolute',
+        left: 10,
+        top: '50%',
+        transform: 'translateY(-50%)',
+        color: 'white',
+        minWidth: 60,
+        height: 60,
+        borderRadius: '50%',
+      }}
+    >
+      <ArrowCircleLeftIcon size={20} />
+    </Button>;
+  };
 
   return (
     <Card variant='outlined' sx={{ width: 400, height: 'auto', borderRadius: 5, boxShadow: 1, paddingBottom: 3 }}>
       {/* Image carousel to display slideshow of venue images */}
-      <Carousel responsive={responsive} infinite={true}>
+      <Carousel
+        responsive={responsive}
+        infinite={true}
+        customRightArrow={<CustomRightArrow />}
+        customLeftArrow={<CustomLeftArrow />}
+      >
         {images.map((image, index) => {
           if (loading) {
             return (
-              <Box key={index} display='flex' sx={{width: '100%', height: 'auto', justifyContent: 'center', alignContent: 'center', paddingTop: 5, paddingBottom: 5}}>
+              <Box key={index} display='flex' sx={{ width: '100%', height: 'auto', justifyContent: 'center', alignContent: 'center', paddingTop: 5, paddingBottom: 5 }}>
                 <CircularProgress />
               </Box>
             )
@@ -105,7 +152,7 @@ export default function Item({ name, address, postcode, description, capacity })
         {/* Provides easy-to-read and short details about this location */}
         <Box className="chips" sx={{ marginBottom: 2 }}>
           {Array.isArray(chips) && chips.map((chip, index) => (
-            <Chip key={index} label={chip.Chip_Description} size="medium" sx={{ marginRight: 1, marginBottom: 1 }}/>
+            <Chip key={index} label={chip.Chip_Description} size="medium" sx={{ marginRight: 1, marginBottom: 1 }} />
           ))}
         </Box>
         <Typography
